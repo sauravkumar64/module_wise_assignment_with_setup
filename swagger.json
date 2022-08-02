@@ -1,0 +1,272 @@
+{
+  "swagger": "2.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Harish User management system",
+    "contact": { "email": "harish.g@applify.co" },
+    "license": {
+      "name": "",
+      "url": ""
+    }
+  },
+  "schemes": ["http", "https"],
+  "tags": {
+    "name": "Admin registration",
+    "description": "users api"
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "JWT Authorization header"
+    }
+  },
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/admin/AdminRegistration": {
+      "post": {
+        "summary": "Admin Registration",
+        "tags": ["Admin registration"],
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "enter name",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "Enter email",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Enter a password",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "Enter Super-Admin",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "IsAdmin",
+            "in": "formData",
+            "description": "Enter only 1 for admin",
+            "required": "true",
+            "type": "interger"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Registration Successfull",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "tags": {
+      "name": "Sub-Admin registration",
+      "description": "users api"
+    },
+    "/admin/login": {
+      "post": {
+        "summary": "Login",
+        "tags": ["Admin registration"],
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "enter email",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "enter a password",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Login Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+
+    "/admin/view": {
+      "get": {
+        "summary": "Return the list of all the user. No need of token",
+        "description": "It is list of all user details",
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/admin/view/{name}": {
+      "get": {
+        "summary": "Get detail of specific user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "adminId",
+            "required": true,
+            "description": "Specific user detail"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/admin/blocked": {
+      "get": {
+        "summary": "Blocked not-blocked and not deleted user detail.No need of token",
+        "description": "Blocked not-blocked and not deleted user detail",
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/admin/filter/{id}": {
+      "get": {
+        "summary": "filter on the based on blocked or not_blocked (blocked=1 and not_blocked=0",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "filter on the based on blocked or not_blocked (blocked=1 and not_blocked=0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/admin/block": {
+      "put": {
+        "summary": "Blocked user.Need to login first and need token",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "Enter AdminId",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blocked Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/admin/unblock": {
+      "put": {
+        "summary": "UnBlocked user.Need to login first and need token",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "Enter AdminId",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UnBlocked Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/admin/delete": {
+      "delete": {
+        "summary": "Delete user.Need to login first and need token",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "Enter AdminId",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blocked Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  }
+}
