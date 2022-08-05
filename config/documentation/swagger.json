@@ -1,0 +1,2018 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "common-library - API",
+		"description": "common-library Documentation",
+		"version": "1.0"
+	},
+	"produces": [
+		"application/json"
+	],
+	"basePath": "/",
+	"securityDefinitions": {
+		"Bearer": {
+			"type": "apiKey",
+			"name": "authorization",
+			"in": "header"
+		}
+	},
+	"paths": {
+		"/api/v1/common/appVersion": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-common-appVersion-get",
+				"tags": [
+					"Application Common"
+				],
+				"description": "Get App version",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "platform",
+						"in": "query",
+						"description": "platform of APP (IOS, ANDROID or WEB)",
+						"type": "string",
+						"enum": [
+							"IOS",
+							"ANDROID",
+							"WEB"
+						],
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/common/getSignedURL": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-common-getSignedURL-post",
+				"tags": [
+					"Application Common"
+				],
+				"description": "Get S3 signed url to upload file on s3",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "directory",
+						"in": "formData",
+						"description": "Directory in s3 for particular file",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "fileName",
+						"in": "formData",
+						"description": "Filename of file on client device",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "contentType",
+						"in": "formData",
+						"description": "contentType of file, if file is not an image",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/common/s3folders": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-common-s3folders-get",
+				"tags": [
+					"Application Common"
+				],
+				"description": "Get S3 folders",
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/api/v1/common/countries": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-common-countries-get",
+				"tags": [
+					"Application Common"
+				],
+				"description": "Get countries list",
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "limit",
+						"type": "number",
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "skip",
+						"type": "number",
+						"value": 0,
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/common/contactUs": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-common-contactUs-post",
+				"tags": [
+					"Application Common"
+				],
+				"description": "contact us",
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "formData",
+						"description": "id of user",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "firstName",
+						"in": "formData",
+						"description": "firstName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "lastName",
+						"in": "formData",
+						"description": "lastName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "countryCode",
+						"in": "formData",
+						"description": "countryCode of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "phoneNumber",
+						"in": "formData",
+						"description": "phoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "contactType",
+						"in": "formData",
+						"description": "For what user want to contact/query",
+						"type": "string",
+						"enum": ["USER", "RIDER", "CATEGORY"],
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "comment",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/signUp": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-sign_up-post",
+				"tags": [
+					"User"
+				],
+				"description": "Register User",
+				"parameters": [
+					{
+						"name": "platformType",
+						"in": "formData",
+						"description": "platformType of user",
+						"type": "string",
+						"enum": [
+							"IOS",
+							"ANDROID",
+							"WEB"
+						],
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "deviceToken",
+						"in": "formData",
+						"description": "deviceToken of users device",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "countryCode",
+						"in": "formData",
+						"description": "countryCode of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "phoneNumber",
+						"in": "formData",
+						"description": "phoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "password",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "userType",
+						"in": "formData",
+						"description": "userType",
+						"type": "integer",
+						"value": 0,
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/verifyEmail": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-verifyEmail-get",
+				"tags": [
+					"User"
+				],
+				"description": "verify email",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "otp",
+						"in": "query",
+						"description": "otp to verify email",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/verifyPhoneNumber": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-verifyPhoneNumber-get",
+				"tags": [
+					"User"
+				],
+				"description": "verify verifyPhoneNumber",
+				"parameters": [
+					{
+						"name": "phoneNumber",
+						"in": "formData",
+						"description": "accessToken of user",
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "otp",
+						"in": "formData",
+						"description": "otp to verify Phone Number",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/resendEmailForVerification": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-resendEmailForVerification-put",
+				"tags": [
+					"User"
+				],
+				"description": "Resend Email for verification of email",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/resendOtpForVerification": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-resendOtpForVerification-put",
+				"tags": [
+					"User"
+				],
+				"description": "Resend message for verification of phone number",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/login": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-login-post",
+				"tags": [
+					"User"
+				],
+				"description": "Login User",
+				"parameters": [
+					{
+						"name": "platformType",
+						"in": "formData",
+						"description": "platformType of user",
+						"type": "string",
+						"enum": [
+							"IOS",
+							"ANDROID",
+							"WEB"
+						],
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "deviceToken",
+						"in": "formData",
+						"description": "deviceToken of users device",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "countryCode",
+						"in": "formData",
+						"description": "countryCode of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "emailOrPhoneNumber",
+						"in": "formData",
+						"description": "emailOrPhoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "password",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/socialLogin": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-socialLogin-post",
+				"tags": [
+					"User"
+				],
+				"description": "Login User with social id",
+				"parameters": [
+					{
+						"name": "platformType",
+						"in": "formData",
+						"description": "platformType of user",
+						"type": "string",
+						"enum": [
+							"IOS",
+							"ANDROID",
+							"WEB"
+						],
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "deviceToken",
+						"in": "formData",
+						"description": "deviceToken of users device",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "social_id",
+						"in": "formData",
+						"description": "social_id of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "loginType",
+						"in": "formData",
+						"description": "1 => EMAIL_OR_PHONE,  2 => FACEBOOK, 3 => GMAIL, 4 => APPLE, 5 => MICROSOFT",
+						"type": "number",
+						"enum": [
+							1,
+							2,
+							3,
+							4,
+							5
+						],
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "emailOrPhoneNumber",
+						"in": "formData",
+						"description": "emailOrPhoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "countryCode",
+						"in": "formData",
+						"description": "countryCode of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "password",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/registerUser": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-registerUser-put",
+				"tags": [
+					"User"
+				],
+				"description": "create profile of User",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "platformType",
+						"in": "formData",
+						"description": "platformType of user",
+						"type": "string",
+						"enum": [
+							"IOS",
+							"ANDROID",
+							"WEB"
+						],
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "referralCode",
+						"in": "formData",
+						"description": "referralCode of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "firstName",
+						"in": "formData",
+						"description": "firstName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "lastName",
+						"in": "formData",
+						"description": "lastName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "countryCode",
+						"in": "formData",
+						"description": "countryCode of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "phoneNumber",
+						"in": "formData",
+						"description": "phoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "gender",
+						"in": "formData",
+						"description": "gender of user",
+						"enum": [
+							"Male",
+							"Female",
+							"Other",
+							"NA"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "signupType",
+						"in": "formData",
+						"description": "signupType of user",
+						"enum": ["EMAIL_OR_PHONE", "FACEBOOK", "GMAIL", "APPLE", "MICROSOFT"],
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "profilePic",
+						"in": "formData",
+						"description": "profilePic",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "age",
+						"in": "formData",
+						"description": "age",
+						"type": "number",
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "registrationStep",
+						"in": "formData",
+						"description": "registrationStep",
+						"type": "number",
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "address",
+						"in": "formData",
+						"description": "address",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "city",
+						"in": "formData",
+						"description": "city",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "notificationEnabled",
+						"in": "formData",
+						"description": "notificationEnabled",
+						"enum": [
+							"0",
+							"1"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/forgotPassword": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-forgotPassword-put",
+				"tags": [
+					"User"
+				],
+				"description": "Generate email for getting token for reseting password",
+				"parameters": [
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "countryCode",
+						"in": "formData",
+						"description": "countryCode",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "phoneNumber",
+						"in": "formData",
+						"description": "phoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/verifyForgetPasswordOtp": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-verifyForgetPasswordOtp-put",
+				"tags": [
+					"User"
+				],
+				"description": "Verify forgot password token",
+				"parameters": [
+					{
+						"name": "token",
+						"in": "formData",
+						"description": "token",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "forgotPasswordOtp",
+						"in": "formData",
+						"description": "otp",
+						"type": "number",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/resetPassword": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-resetPassword-put",
+				"tags": [
+					"User"
+				],
+				"description": "Reset password after verifying token recieved on email",
+				"parameters": [
+					{
+						"name": "token",
+						"in": "formData",
+						"description": "token",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "New password",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/changePassword": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-change_password-put",
+				"tags": [
+					"User"
+				],
+				"description": "Change user password",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "oldPassword",
+						"in": "formData",
+						"description": "oldPassword",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "New password",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/logout": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-logout-put",
+				"tags": [
+					"User"
+				],
+				"description": "Logout user by deleting session",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "deviceToken",
+						"in": "formData",
+						"description": "deviceToken",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/uploadUrl": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-uploadUrl-post",
+				"tags": [
+					"User"
+				],
+				"description": "Generate S3 URL for uploading images",
+				"parameters": [
+					{
+						"name": "folder",
+						"in": "formData",
+						"description": "folder",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "fileName",
+						"in": "formData",
+						"description": "fileName",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-get",
+				"tags": [
+					"User"
+				],
+				"description": "Get user profile",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-delete",
+				"tags": [
+					"User"
+				],
+				"description": "Delete user",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-put",
+				"tags": [
+					"User"
+				],
+				"description": "Update user profile",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "phoneNumber",
+						"in": "formData",
+						"description": "phoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "countryCode",
+						"in": "formData",
+						"description": "countryCode of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "firstName",
+						"in": "formData",
+						"description": "firstName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "lastName",
+						"in": "formData",
+						"description": "lastName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "gender",
+						"in": "formData",
+						"description": "gender of user",
+						"enum": [
+							"Male",
+							"Female",
+							"Other",
+							"NA"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "profilePic",
+						"in": "formData",
+						"description": "profilePic",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "age",
+						"in": "formData",
+						"description": "age",
+						"type": "number",
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "address",
+						"in": "formData",
+						"description": "address",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "city",
+						"in": "formData",
+						"description": "city",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "notificationEnabled",
+						"in": "formData",
+						"description": "notificationEnabled",
+						"enum": [
+							"0",
+							"1"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/referredUserList": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-referredUserList-get",
+				"tags": [
+					"User"
+				],
+				"description": "Get referred user list",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "limit",
+						"type": "integer",
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "skip",
+						"type": "integer",
+						"value": 0,
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/user/notificationSettings": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-user-userNotification-put",
+				"tags": [
+					"User Notification"
+				],
+				"description": "Update user notifications",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "comment",
+						"in": "formData",
+						"description": "",
+						"type": "integer",
+						"enum": [0, 1],
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "post",
+						"in": "formData",
+						"description": "",
+						"type": "integer",
+						"enum": [0, 1],
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/notification": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-notification-get",
+				"tags": [
+					"Notification"
+				],
+				"description": "Get notification",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-notification-post",
+				"tags": [
+					"Notification"
+				],
+				"description": "Create notification",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "senderId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "receiverId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "platform",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "integer",
+						"value": ""
+					},
+					{
+						"name": "notificationType",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "integer",
+						"value": ""
+					},
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					},
+					{
+						"name": "message",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-notification-put",
+				"tags": [
+					"Notification"
+				],
+				"description": "Update notification",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "senderId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "receiverId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "platform",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "integer",
+						"value": ""
+					},
+					{
+						"name": "notificationType",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "integer",
+						"value": ""
+					},
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					},
+					{
+						"name": "message",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					},
+					{
+						"name": "isRead",
+						"in": "formData",
+						"description": "",
+						"required": false,
+						"enum": [0, 1],
+						"type": "integer",
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-notification-delete",
+				"tags": [
+					"Notification"
+				],
+				"description": "Delete notification",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false,
+						"value": ""
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/notification/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-notification-getById",
+				"tags": [
+					"Notification"
+				],
+				"description": "get notification details",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/reportedBugs/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-reportedBugs-create-POST",
+				"tags": [
+					"Report"
+				],
+				"description": "Add reported bugs",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "title is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "image is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "description",
+						"in": "formData",
+						"description": "description is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/reportedItems/create": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-reportedItems-create-POST",
+				"tags": [
+					"Report"
+				],
+				"description": "Add reported items",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "itemId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					},
+					{
+						"name": "itemType",
+						"in": "formData",
+						"enum": [
+							"COMMENT",
+							"POST"
+						],
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "description",
+						"in": "formData",
+						"description": "description is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+					
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/reportedFeedback/create": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-adminFeedback-create-POST",
+				"tags": [
+					"Report"
+				],
+				"description": "Add feedback",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "comment",
+						"in": "formData",
+						"description": "comment",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "rating",
+						"in": "formData",
+						"description": "rating is required",
+						"type": "integer",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "title",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"description": "type is required",
+						"enum": [
+							"USER",
+							"RIDER",
+							"CATEGORY"
+						],
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/chatMessage/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatMessage-POST",
+				"tags": [
+					"Chat Message"
+				],
+				"description": "Add chat message by api",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "message",
+						"in": "formData",
+						"description": "message is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "isReply",
+						"in": "formData",
+						"description": "",
+						"type": "integer",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "fileUrl",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "chatDetailId",
+						"in": "formData",
+						"description": "chatDetailId is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "parentId",
+						"in": "formData",
+						"description": "parentId is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatMessage-GET",
+				"tags": [
+					"Chat Message"
+				],
+				"description": "get chat message by api",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatMessage-PUT",
+				"tags": [
+					"Chat Message"
+				],
+				"description": "Update chat message by api",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"type": "string",
+						"format": "uuid",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "message",
+						"in": "formData",
+						"description": "items is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "isReply",
+						"in": "formData",
+						"description": "",
+						"type": "integer",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "fileUrl",
+						"in": "formData",
+						"description": "image is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatMessage-DELETE",
+				"tags": [
+					"Chat Message"
+				],
+				"description": "delete chat message by api",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"type": "string",
+						"format": "uuid",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/chatMessage/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatMessage-detail-GET",
+				"tags": [
+					"Chat Message"
+				],
+				"description": "get chat message by api",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/chatDetails/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatDetails-POST",
+				"tags": [
+					"Chat Details"
+				],
+				"description": "Add chat details",
+				"parameters": [
+					{
+						"name": "type",
+						"in": "formData",
+						"enum": [
+							"COMMENTS",
+							"CHAT",
+							"ONE_TO_ONE",
+							"GROUP_CHAT"
+						],
+						"type": "string",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatDetails-list-get",
+				"tags": [
+					"Chat Details"
+				],
+				"description": "Get chat details",
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatDetails-PUT",
+				"tags": [
+					"Chat Details"
+				],
+				"description": "Update chat details",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"enum": [
+							"COMMENTS",
+							"CHAT",
+							"ONE_TO_ONE",
+							"GROUP_CHAT"
+						],
+						"type": "string",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatDetails-DELETE",
+				"tags": [
+					"Chat Details"
+				],
+				"description": "Delete chat details",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/chatDetails/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatDetails-detail-{id}-GET",
+				"tags": [
+					"Chat Details"
+				],
+				"description": "Get chat details",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/chatDetails/blockUnblock": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-chatDetails-blockUnblock-put",
+				"tags": [
+					"Chat Details"
+				],
+				"description": "BlockUnblock chat details",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "isBlocked",
+						"in": "formData",
+						"description": "",
+						"enum": [
+							0,
+							1
+						],
+						"type": "integer",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/api/v1/userReaction/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-userReaction-POST",
+				"tags": [
+					"User Reaction"
+				],
+				"description": "Add user reaction",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "type",
+						"in": "formData",
+						"enum": [
+							"1",
+							"2",
+							"3",
+							"4"
+						],
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "reaction",
+						"in": "formData",
+						"description": "",
+						"enum": [
+							1,
+							2,
+							3,
+							4,
+							5,
+							6,
+							7,
+							8,
+							9
+						],
+						"type": "integer",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-userReaction-PUT",
+				"tags": [
+					"User Reaction"
+				],
+				"description": "Update user reaction",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"enum": [
+							"1",
+							"2",
+							"3",
+							"4"
+						],
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "reaction",
+						"in": "formData",
+						"description": "",
+						"enum": [
+							1,
+							2,
+							3,
+							4,
+							5,
+							6,
+							7,
+							8,
+							9
+						],
+						"type": "integer",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-userReaction-DELETE",
+				"tags": [
+					"User Reaction"
+				],
+				"description": "Delete user reaction",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},"/api/v1/userReaction/count": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "api-v1-userReaction-list-count",
+				"tags": [
+					"User Reaction"
+				],
+				"description": "Get user Reaction",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"responses": {}
+			}
+		}
+	}
+}

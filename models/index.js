@@ -1,0 +1,30 @@
+var Sequelize = require("sequelize");
+var sequelize = require("../dbConnection").sequelize;
+module.exports = {
+	AchievementLevels: require("./achievementLevels")(Sequelize, sequelize, Sequelize.DataTypes),
+	AchievementRules: require("./achievementRules")(Sequelize, sequelize, Sequelize.DataTypes),
+	Achievements: require("./achievements")(Sequelize, sequelize, Sequelize.DataTypes),
+	Admin: require("./admin")(Sequelize, sequelize, Sequelize.DataTypes),
+	AdminNotification: require("./adminNotification")(Sequelize, sequelize, Sequelize.DataTypes),
+	AdminPermissions: require("./adminPermissions")(Sequelize, sequelize, Sequelize.DataTypes),
+	AdminSessions: require("./adminSessions")(Sequelize, sequelize, Sequelize.DataTypes),
+	AppVersion: require("./appVersions")(Sequelize, sequelize, Sequelize.DataTypes),
+	BroadcastNotifications: require("./broadcastNotifications")(Sequelize, sequelize, Sequelize.DataTypes),
+	Categories: require("./categories")(Sequelize, sequelize, Sequelize.DataTypes),
+	ChatDetails: require("./chatDetails")(Sequelize, sequelize, Sequelize.DataTypes),
+	ChatMessages: require("./chatMessages")(Sequelize, sequelize, Sequelize.DataTypes),
+	ContactUs: require("./contactUs")(Sequelize, sequelize, Sequelize.DataTypes),
+	Countries: require("./countries")(Sequelize, sequelize, Sequelize.DataTypes),
+	Feedback: require("./feedback")(Sequelize, sequelize, Sequelize.DataTypes),
+	Notifications: require("./notifications")(Sequelize, sequelize, Sequelize.DataTypes),
+	QueueTask: require("./queueTask")(Sequelize, sequelize, Sequelize.DataTypes),
+	ReportedBug: require("./reportedBugs")(Sequelize, sequelize, Sequelize.DataTypes),
+	ReportedItem: require("./reportedItems")(Sequelize, sequelize, Sequelize.DataTypes),
+	Sessions: require("./sessions")(Sequelize, sequelize, Sequelize.DataTypes),
+	UserActivity: require("./userActivity")(Sequelize, sequelize, Sequelize.DataTypes),
+	UserNotificationSettings: require("./userNotificationSettings")(Sequelize, sequelize, Sequelize.DataTypes),
+	UserReaction: require("./userReaction")(Sequelize, sequelize, Sequelize.DataTypes),
+	UserSocialAccounts: require("./userSocialAccounts")(Sequelize, sequelize, Sequelize.DataTypes),
+	UserVisit: require("./userVisited")(Sequelize, sequelize, Sequelize.DataTypes),
+	Users: require("./users")(Sequelize, sequelize, Sequelize.DataTypes)
+};

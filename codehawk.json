@@ -1,0 +1,10 @@
+{
+  "extensions":[".js", ".jsx", ".ts", ".tsx"],
+  "skipDirectories": [
+    "/node_modules", 
+    "coverage",
+    "bin"
+  ],
+  "minimumThreshold":2,
+  "cliOutputLimit": 1000
+}
