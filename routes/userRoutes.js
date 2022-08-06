@@ -1,61 +1,31 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controller");
-const IsAdmin= require("../middleware/IsAdmin.js")
-const IsAuth= require("../middleware/IsAuth.js")
-//Registration Admin API
-// router.use("/registration", [IsAuth, IsAdmin]);
-router.post("/AdminRegistration",async (req, res) => {
-  let admin = await controller.userRegister.Registration(req.body);
-  res.json(admin);
+const sendResponse = require("../helper/sendResponse");
+// const IsAuth = require('../middleware/IsAdmin')
+
+router.post("/AdminRegistration", (req, res) => {
+	return sendResponse.executeMethod(controller.userRegister.Registration, req.body, req, res);
 });
 
-//Blocked not-blocked and not deleted user detail
-router.get("/blocked",async(req,res)=>{
-  let user= await controller.userRegister.Blocked();
-  res.json(user)
-})
+router.get("/view",(req, res) => {
+	let payload = req.query;
+	if ((payload.skip) && (payload.limit) && (payload.skip > 0)) {
+		payload.skip = (payload.skip - 1) * payload.limit;
+	}
+	return sendResponse.executeMethod(controller.userRegister.detailUser, payload, req, res);
+});
 
-//filter on the based on blocked or not_blocked (blocked=1 and not_blocked=0)
-router.get("/filter/:id",async(req,res)=>{
-  let user= await controller.userRegister.filter(req,res);
-  res.json(user)
-})
-
-//View all admin details
-
-router.get("/view",async(req,res)=>{
-  let user= await controller.userRegister.viewAll();
-  res.json(user)
-})
-//view specific preson
-router.get("/view/:name",async(req,res)=>{
-  let user= await controller.userRegister.viewperson(req.params);
-  res.json(user)
-})
-
-//Delete user
 router.delete("/delete",async(req,res)=>{
-  let user= await controller.userRegister.deleteperson(req.body);
-  res.json(user)
+  return sendResponse.executeMethod(controller.userRegister.deleteperson,req.body,req,res);
 })
-
-//Admin can block the user
 
 router.put("/block",async(req,res)=>{
-  let user= await controller.userRegister.block(req.body)
-  res.json(user)
+  return sendResponse.executeMethod(controller.userRegister.block,req.body,req,res)
 })
 
-//Admin unblock the user
-router.put("/unblock",async(req,res)=>{
-  let user= await controller.userRegister.unblock(req.body)
-  res.json(user)
+router.put("/unblock",(req,res)=>{
+  return sendResponse.executeMethod(controller.userRegister.unblock,req.body,req,res)
 })
 
-//login admins
-router.post("/login",async(req,res)=>{
-  let user= await controller.userRegister.loginAdmin(req.body)
-  res.json(user);
-})
 module.exports = router;

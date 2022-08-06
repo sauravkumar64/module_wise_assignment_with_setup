@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../config/connectionDB").sequelize;
+const sequelize = require("../connectionDB").sequelize;
 
 
 const user = sequelize.define(
@@ -11,9 +11,9 @@ const user = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
     },
-    title:{
-          type:DataTypes.STRING,
-    },
+    // title:{
+    //       type:DataTypes.STRING,
+    // },
     IsAdmin:{
       type:DataTypes.BOOLEAN,
       defaultValue:false
@@ -34,10 +34,6 @@ const user = sequelize.define(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-//  IsPermission:{
-//   type:DataTypes.INTEGER,
-//   defaultValue:1,  //FOR Super-admin=0, sub-admin=1 and permission=2
-//  },
   },
   {
     freezeTableName: true,

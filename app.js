@@ -6,7 +6,7 @@ const port = 4001;
 var cookieParser = require('cookie-parser');
 
 const swaggerUI = require("swagger-ui-express");
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./config/documentation/swagger.json');
 const cors = require("cors");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,8 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(cors());
 
-require("./config/connectionDB").connect();
-require("./config/connectionDB").syn();
+require("./connectionDB").connect();
+require("./connectionDB").syn();
+
 const router = require("./routes/userRoutes");
 //Due to this table is create at database not use it not table create
 require("./model");

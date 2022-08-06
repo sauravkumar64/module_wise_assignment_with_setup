@@ -6,6 +6,9 @@ const transporter = require("../config/emailConfig");
 const nodemailer = require("nodemailer");
 const Helper= require("../helper/validator.js")
 const Joi= require("joi")
+let message = require("../config/messages");
+const Response = require("../config/response");
+let adminProjection = ["adminId", "name", "email", "title", "Isblocked", "createdAt"];
 module.exports = {
   Registration: async (datas) => {
     const schema = Joi.object({
@@ -20,15 +23,15 @@ if(!data){
 else{ 
     let adminData = {
       name: data.name,
-      // title:data.title,
       email: data.email,
       password: data.password,
     };
     const admin = await Service.userService.getAdmin(adminData);
 
-    if (admin) {
-      return { status: "failed", message: "Email already exist" };
-    } else {
+    if (admin) 
+    throw Response.error_msg.alreadyExist
+
+     else {
       if (data.email && data.password) {
         try {
           var value = data.password;
@@ -61,45 +64,12 @@ else{
     }
   }
   },
-  Blocked: async () => {
-    let user = await Service.userService.findblocked();
-    return user;
-  },
-  filter: async (req, res) => {
-    const { id } = req.params;
-    if (id === "0") {
-      let user = await Service.userService.findNotblocked();
-      return user;
-    } else {
-      let user = await Service.userService.findNotblockeds();
-      return user;
-    }
-  },
-  viewAll: async () => {
-    let user = await Service.userService.view();
-    return user;
-  },
-  viewperson: async (data) => {
-    const datas = {
-      name: data.name,
-    };
-    let user = await Service.userService.viewperson(datas);
-    if (user) {
-      return user;
-    } else {
-      return { status: "failed", message: "No user present" };
-    }
-  },
   deleteperson: async (data) => {
     const datas = {
       name: data.name,
     };
     let user = await Service.userService.deleteperson(datas);
-    return {
-      status: "Success",
-      message: "Sucessfull delete the user",
-      user: user,
-    };
+    return message.success.DELETED
   },
   block: async (d) => {
     let data = {
@@ -110,15 +80,9 @@ else{
     {
       let user = await Service.userService.blockperson(data);
     
-    return {
-      status: "Success",
-      message: "Sucessfull block the user",
-    };
+    return message.success.BLOCKED
   }
-  return {
-    status: "Failed",
-    message: "Not able to blocked the user",
-  };
+  return Response.error_msg.blockFailed
   },
   unblock: async (d) => {
     let data = {
@@ -129,16 +93,10 @@ else{
     {
       let user = await Service.userService.unblockperson(data);
     
-    return {
-      status: "Success",
-      message: "Sucessfull unblock the user",
-    };
+    return message.success.UNBLOCKED
   }
    
-  return {
-    status: "Failed",
-    message: "Not able to unblocked the user",
-  };
+  return Response.error_msg.unblockFailed
   },
   loginAdmin: async (data)=>{
     try {
@@ -189,4 +147,25 @@ else{
       return { status: "failed", message: "Unabale to login" };
     }
   },
+  detailUser: async(payloadData) => {
+		const schema = Joi.object().keys({
+			limit: Joi.number().required(),
+			skip: Joi.number().required(),
+			sortBy: Joi.string().optional(),
+			orderBy: Joi.string().optional(),
+			search: Joi.string().optional().allow(""),
+			title: Joi.string().optional().allow(""),
+			Isblocked: Joi.number().optional(),
+		});
+		let payload = await Helper.verifyjoiSchema(payloadData, schema);
+		let admins = await Service.userService.detailUser(payload, adminProjection, parseInt(payload.limit, 10) || 10, parseInt(payload.skip, 10) || 0);
+		if (admins) {
+			return admins;
+		} else {
+			return {
+				rows: [],
+				count: 0,
+			};
+		}
+	}
 };

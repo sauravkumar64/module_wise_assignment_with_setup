@@ -24,7 +24,7 @@
   },
   "security": [{ "bearerAuth": [] }],
   "paths": {
-    "/admin/AdminRegistration": {
+    "/user/AdminRegistration": {
       "post": {
         "summary": "Admin Registration",
         "tags": ["Admin registration"],
@@ -81,116 +81,72 @@
       }
     },
     "tags": {
-      "name": "Sub-Admin registration",
+      "name": "Admin registration",
       "description": "users api"
     },
-    "/admin/login": {
-      "post": {
-        "summary": "Login",
-        "tags": ["Admin registration"],
-        "content": ["application/json"],
-        "parameters": [
-          {
-            "name": "email",
-            "in": "formData",
-            "description": "enter email",
-            "required": "true",
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "formData",
-            "description": "enter a password",
-            "required": "true",
-            "type": "string"
+    "/user/view": {
+			"get": {
+			
+				"tags": [
+					"User filter"
+				],
+				"description": "List all Users that are blocked or not blocked, but not deleted, alongwith count of users. And also we can filter admins by their name, if admin wants to see only blocked admins then apply blocked filter,",
+				"parameters": [
+					{
+						"name": "limit",
+						"description": "Limit",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"value": "10"
+					},
+					{
+						"name": "skip",
+						"description": "Skip",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"value": "0"
+					},
+					{
+						"name": "sortBy",
+						"description": "sort by",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"description": "order by",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "Search",
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "Isblocked",
+						"enum": [
+							0,
+							1
+						],
+						"description": "Blocked admin users",
+						"in": "query",
+						"type": "integer",
+						"required": false
           }
-        ],
-
-        "responses": {
-          "200": {
-            "description": "Login Successfull",
-            "schema": {
-              "type": ""
-            }
-          },
-          "405": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-
-    "/admin/view": {
-      "get": {
-        "summary": "Return the list of all the user. No need of token",
-        "description": "It is list of all user details",
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "type": "object"
-            }
-          }
-        }
-      }
-    },
-    "/admin/view/{name}": {
-      "get": {
-        "summary": "Get detail of specific user",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "adminId",
-            "required": true,
-            "description": "Specific user detail"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "type": "object"
-            }
-          }
-        }
-      }
-    },
-    "/admin/blocked": {
-      "get": {
-        "summary": "Blocked not-blocked and not deleted user detail.No need of token",
-        "description": "Blocked not-blocked and not deleted user detail",
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "type": "object"
-            }
-          }
-        }
-      }
-    },
-    "/admin/filter/{id}": {
-      "get": {
-        "summary": "filter on the based on blocked or not_blocked (blocked=1 and not_blocked=0",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "filter on the based on blocked or not_blocked (blocked=1 and not_blocked=0"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "type": "object"
-            }
-          }
-        }
-      }
-    },
-    "/admin/block": {
+				],
+				"responses": {}
+			}
+		},
+    "/user/block": {
       "put": {
         "summary": "Blocked user.Need to login first and need token",
         "content": ["application/json"],
@@ -216,7 +172,7 @@
         }
       }
     },
-    "/admin/unblock": {
+    "/user/unblock": {
       "put": {
         "summary": "UnBlocked user.Need to login first and need token",
         "content": ["application/json"],
@@ -242,7 +198,7 @@
         }
       }
     },
-    "/admin/delete": {
+    "/user/delete": {
       "delete": {
         "summary": "Delete user.Need to login first and need token",
         "content": ["application/json"],

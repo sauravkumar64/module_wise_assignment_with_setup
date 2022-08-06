@@ -11,57 +11,19 @@ exports.addAdmin = (data) => {
   return Model.userRegister.create(data);
 };
 
-exports.findblocked = () => {
-  return Model.userRegister.findAndCountAll({
-    where: { destroyTime: null },
-    attributes: { exclude: ["password", "blocked", "deleted"] },
-  });
-};
-exports.findNotblocked = () => {
-  return Model.userRegister.findAndCountAll({
-    where: { Isblocked: 0 },
-    attributes: { exclude: ["adminId","IsAdmin","password", "blocked", "deleted","Isblocked","IsPermission","createdAt","updatedAt","destroyTime"] },
-  });
-};
-exports.findNotblockeds = () => {
-  return Model.userRegister.findAndCountAll({
-    where: { Isblocked: 1 },
-    attributes: { exclude: ["adminId","IsAdmin","password", "blocked", "deleted","Isblocked","IsPermission","createdAt","updatedAt","destroyTime"] },
-  });
-};
 
-//view all
-exports.view = () => {
-  return Model.userRegister.findAll({
-    attributes: {
-      exclude: ["adminId", "email", "password", "blocked", "deleted"],
-    },
-  });
-};
-//view specific person
-exports.viewperson = (data) => {
-  return Model.userRegister.findOne({
-    where: { name: data.name },
-  });
-};
-
-//delete a person
 exports.deleteperson = (data) => {
   return Model.userRegister.destroy({
     where: { name: data.name },
   });
 };
 
-//update the person
-
-//firstly find the person
-
 exports.get = (data) => {
   return Model.userRegister.findOne({
     where: { name: data.name },
   });
 };
-//block the person
+
 exports.blockperson = (data) => {
   return Model.userRegister.update(
     { Isblocked: 1 },
@@ -69,7 +31,6 @@ exports.blockperson = (data) => {
   );
 };
 
-//unblock person
 exports.unblockperson = (data) => {
   return Model.userRegister.update(
     { Isblocked: 0 },
@@ -77,13 +38,48 @@ exports.unblockperson = (data) => {
   );
 };
 
-//login column update
-exports.updatelogin = (data) => {
-  return Model.userRegister.update(
-    { IsLogIn: 1 },
-    { where: { email: data.email } }
-  );
+
+exports.detailUser = (criteria, projection, limit, offset) => {
+  let where = {};
+  let order = [
+    [
+      criteria.sortBy ? criteria.sortBy : "createdAt",
+      criteria.orderBy ? criteria.orderBy : "DESC",
+    ],
+  ];
+  if (criteria && criteria.search) {
+    where = {
+      [Op.or]: {
+        name: {
+          [Op.like]: "%" + criteria.search + "%",
+        },
+        email: {
+          [Op.like]: "%" + criteria.search + "%",
+        },
+      },
+    };
+  }
+  // if (criteria && criteria.title) {
+  //   where.title = criteria.title;
+  // }
+  where.destroyTime = null;
+  if (criteria["Isblocked"] === 1) where.Isblocked = 1;
+  return new Promise((resolve, reject) => {
+    Model.userRegister.findAndCountAll({
+      limit,
+      offset,
+      where: where,
+      order: order,
+    })
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        console.log("getAll err ==>>  ", error);
+      });
+  });
 };
+
 
 
 
