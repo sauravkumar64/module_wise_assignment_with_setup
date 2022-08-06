@@ -1,0 +1,3174 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "common-library -  Admin API",
+		"description": "common-library -  Admin API Documentation",
+		"version": "1.0"
+	},
+	"produces": [
+		"application/json"
+	],
+	"basePath": "/",
+	"securityDefinitions": {
+		"Bearer": {
+			"type": "apiKey",
+			"name": "authorization",
+			"in": "header"
+		}
+	},
+	"paths": {
+		"/admin/v1/common/getSignedURL": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-user-common-getSignedURL-post",
+				"tags": [
+					"Admin Common"
+				],
+				"description": "Get S3 signed url to upload file on s3",
+				"parameters": [
+					{
+						"name": "authorization",
+						"in": "header",
+						"description": "accessToken of user",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "directory",
+						"in": "formData",
+						"description": "Directory in s3 for particular file",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "fileName",
+						"in": "formData",
+						"description": "Filename of file on client device",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "contentType",
+						"in": "formData",
+						"description": "contentType of file, if file is not an image",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/common/s3folders": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-common-s3folders-get",
+				"tags": [
+					"Admin Common"
+				],
+				"description": "Get S3 folders",
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/login": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-login-post",
+				"tags": [
+					"Admin"
+				],
+				"description": "Admin Login...",
+				"parameters": [
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email is required",
+						"required": true,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "password is required",
+						"required": true,
+						"type": "string",
+						"value": ""
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/forgot-password": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-forgot-password-post",
+				"tags": [
+					"Admin"
+				],
+				"description": "Forgot Password..",
+				"parameters": [
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email is required",
+						"required": true,
+						"type": "string",
+						"value": ""
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/reset-Password": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-reset-Password-put",
+				"tags": [
+					"Admin"
+				],
+				"description": "Reset Password",
+				"parameters": [
+					{
+						"name": "token",
+						"in": "formData",
+						"description": "token is required",
+						"required": true,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "newPassword",
+						"in": "formData",
+						"description": "newPassword is required",
+						"required": true,
+						"type": "string",
+						"value": ""
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/list": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-list-put",
+				"tags": [
+					"Admin"
+				],
+				"description": "List All SuperAdmins and SubAmdins",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"description": "Limit",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"value": "10"
+					},
+					{
+						"name": "skip",
+						"description": "Skip",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"value": "0"
+					},
+					{
+						"name": "sortBy",
+						"description": "sort by",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"description": "order by",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "Search",
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "isBlocked",
+						"enum": [
+							0,
+							1
+						],
+						"description": "Blocked admin users",
+						"in": "query",
+						"type": "integer",
+						"required": false
+					},
+					{
+						"name": "isActive",
+						"in": "query",
+						"enum": [
+							0,
+							1
+						],
+						"description": "Active admin users",
+						"type": "integer",
+						"required": false
+					},
+					{
+						"name": "adminType",
+						"enum": [
+							"SUPER_ADMIN",
+							"SUB_ADMIN"
+						],
+						"description": "",
+						"in": "query",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "accessPermissions",
+						"in": "query",
+						"type": "string",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-put",
+				"tags": [
+					"Admin"
+				],
+				"description": "Update Admin Details",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"content": "multipart/form-data",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"schema": {
+							"properties": {
+								"id": {
+									"description": "id GUID",
+									"required": false,
+									"type": "string",
+									"value": ""
+								},
+								"email": {
+									"description": "email",
+									"required": false,
+									"type": "string",
+									"value": ""
+								},
+								"firstName": {
+									"description": "First Name",
+									"required": false,
+									"type": "string",
+									"value": ""
+								},
+								"lastName": {
+									"description": "Last Name",
+									"type": "string",
+									"value": ""
+								},
+								"adminType": {
+									"enum": [
+										"SUPER_ADMIN",
+										"SUB_ADMIN"
+									],
+									"description": "",
+									"type": "string",
+									"required": false
+								},
+								"accessPermissions": {
+									"type": "array",
+									"required": false,
+									"items": {
+										"$ref": "#/definitions/accessPermissions"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {}
+			},
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-post",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"tags": [
+					"Admin"
+				],
+				"description": "Add SuperAdmins or SubAdmins",
+				"consumes": "application/json",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"schema": {
+							"properties": {
+								"email": {
+									"description": "email is required",
+									"required": true,
+									"type": "string",
+									"value": ""
+								},
+								"firstName": {
+									"description": "First Name",
+									"required": true,
+									"type": "string",
+									"value": ""
+								},
+								"lastName": {
+									"description": "Last Name",
+									"type": "string",
+									"value": ""
+								},
+								"adminType": {
+									"enum": [
+										"SUPER_ADMIN",
+										"SUB_ADMIN"
+									],
+									"description": "",
+									"type": "string",
+									"required": true
+								},
+								"accessPermissions": {
+									"type": "array",
+									"required": true,
+									"items": {
+										"$ref": "#/definitions/accessPermissions"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-delete",
+				"tags": [
+					"Admin"
+				],
+				"description": "Delete Admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/adminDetail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-{id}-get",
+				"tags": [
+					"Admin"
+				],
+				"description": "Get admin details by id",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/block": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-block-put",
+				"tags": [
+					"Admin"
+				],
+				"description": "Block Admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "isBlocked",
+						"in": "formData",
+						"description": "",
+						"enum": [
+							0,
+							1
+						],
+						"type": "integer",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/profile": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-profile-get",
+				"tags": [
+					"Admin"
+				],
+				"description": "Get admin profile",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/edit-profile": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-edit-profile-put",
+				"tags": [
+					"Admin"
+				],
+				"description": "Update Profile of admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "firstName",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "lastName",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/profile/change-password": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-profile-change-password-put",
+				"tags": [
+					"Admin"
+				],
+				"description": "Change Password",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "password is required",
+						"required": true,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "oldPassword",
+						"in": "formData",
+						"description": "oldPassword is required",
+						"required": true,
+						"type": "string",
+						"value": ""
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/admin/logout": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-admin-logout-put",
+				"tags": [
+					"Admin"
+				],
+				"description": "Logout Admin..",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/notification/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-notification-create-POST",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "Add notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "message",
+						"in": "formData",
+						"description": "message is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "image is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "title is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "platform",
+						"in": "formData",
+						"description": "platform is required",
+						"enum": [
+							"ALL",
+							"ANDROID",
+							"IOS",
+							"WEB"
+						],
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-notification-list-GET",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "get notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-notification-delete-DELETE",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "delete notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"type": "string",
+						"format": "uuid",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-notification-update-PUT",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "update notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "message",
+						"in": "formData",
+						"description": "message",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "image",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "title",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "platform",
+						"in": "formData",
+						"description": "platformType",
+						"enum": [
+							"ALL",
+							"ANDROID",
+							"IOS",
+							"WEB"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "isRead",
+						"in": "formData",
+						"description": "isRead ",
+						"type": "integer",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/notification/counts": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-notification-get",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "Get count of notification",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/notification/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-notification-detail-GET",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "detail notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/notification/blockUnblock": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-notification-blockUnblock-PUT",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "blockUnblock notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"required": true,
+						"type": "string",
+						"format": "uuid",
+						"value": ""
+					},
+					{
+						"name": "isBlocked",
+						"in": "formData",
+						"description": "",
+						"type": "integer",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/adminNotification/": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-adminNotification-list-GET",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "get admin notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-adminNotification-update-PUT",
+				"tags": [
+					"Admin Notification"
+				],
+				"description": "update admin notification by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "isRead",
+						"in": "formData",
+						"description": "",
+						"enum": [
+							0,
+							1
+						],
+						"type": "integer",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/adminFeedback/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-adminFeedback-create-POST",
+				"tags": [
+					"Admin Feedback"
+				],
+				"description": "Add feedback by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "comment",
+						"in": "formData",
+						"description": "title is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "rating",
+						"in": "formData",
+						"description": "items is required",
+						"type": "integer",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"description": "type is required",
+						"enum": [
+							"USER",
+							"RIDER",
+							"CATEGORY"
+						],
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-adminFeedback-list-get",
+				"tags": [
+					"Admin Feedback"
+				],
+				"description": "Get feedback by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-adminFeedback-update-put",
+				"tags": [
+					"Admin Feedback"
+				],
+				"description": "Update feedback by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "comment",
+						"in": "formData",
+						"description": "comment is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "rating",
+						"in": "formData",
+						"description": "rating is required",
+						"type": "integer",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"description": "type is required",
+						"enum": [
+							"USER",
+							"RIDER",
+							"CATEGORY"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-adminFeedback-delete-delete",
+				"tags": [
+					"Admin Feedback"
+				],
+				"description": "Delete feedback by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/adminFeedback/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-adminFeedback-detail-{id}-get",
+				"tags": [
+					"Admin Feedback"
+				],
+				"description": "Get feedback by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedItems/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedItems-create-POST",
+				"tags": [
+					"Reported Items"
+				],
+				"description": "Add reportedItems by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "itemId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					},
+					{
+						"name": "itemType",
+						"in": "formData",
+						"enum": [
+							"COMMENT",
+							"POST"
+						],
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "status",
+						"in": "formData",
+						"enum": [
+							"PENDING",
+							"APPROVED",
+							"DECLINED"
+						],
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "description",
+						"in": "formData",
+						"description": "description is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedItems-list-get",
+				"tags": [
+					"Reported Items"
+				],
+				"description": "Get reportedItems by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "PENDING / APPROVED / DECLINED ",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					},
+					{
+						"name": "itemType",
+						"in": "query",
+						"description": "COMMENT/ POST",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedItems-update-put",
+				"tags": [
+					"Reported Items"
+				],
+				"description": "Update reportedItems by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "itemType",
+						"in": "formData",
+						"enum": [
+							"COMMENT",
+							"POST"
+						],
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "description",
+						"in": "formData",
+						"description": "description is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "status",
+						"in": "formData",
+						"enum": [
+							"",
+							"PENDING",
+							"APPROVED",
+							"DECLINED"
+						],
+						"type": "string",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedItems-delete-delete",
+				"tags": [
+					"Reported Items"
+				],
+				"description": "Delete reportedItems by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedItems/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedItems-detail-{id}-get",
+				"tags": [
+					"Reported Items"
+				],
+				"description": "Get reportedItems by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedItems/counts": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedItems-list-get",
+				"tags": [
+					"Reported Items"
+				],
+				"description": "Get  count reportedItems by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedItems/blockUnblock": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "aadmin-v1-reportedItems-blockUnblock-put",
+				"tags": [
+					"Reported Items"
+				],
+				"description": "BlockUnblock reportedItems by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "isBlocked",
+						"in": "formData",
+						"description": "",
+						"enum": [
+							0,
+							1
+						],
+						"type": "integer",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedBugs/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedBugs-create-POST",
+				"tags": [
+					"Reported Bugs"
+				],
+				"description": "Add reportedBugs by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "title is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "image is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "status",
+						"in": "formData",
+						"enum": [
+							"PENDING",
+							"APPROVED",
+							"DECLINED"
+						],
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "description",
+						"in": "formData",
+						"description": "description is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedBugs-list-get",
+				"tags": [
+					"Reported Bugs"
+				],
+				"description": "Get reportedBugs by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "PENDING / APPROVED / DECLINED ",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedBugs-update-put",
+				"tags": [
+					"Reported Bugs"
+				],
+				"description": "Update reportedBugs by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "title",
+						"in": "formData",
+						"description": "title is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "image is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "description",
+						"in": "formData",
+						"description": "description is required",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "status",
+						"in": "formData",
+						"enum": [
+							"",
+							"PENDING",
+							"APPROVED",
+							"DECLINED"
+						],
+						"type": "string",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedBugs-delete-delete",
+				"tags": [
+					"Reported Bugs"
+				],
+				"description": "Delete reportedBugs by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedBugs/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedBugs-detail-{id}-get",
+				"tags": [
+					"Reported Bugs"
+				],
+				"description": "Get reportedBugs by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedBugs/counts": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedBugs-list-get",
+				"tags": [
+					"Reported Bugs"
+				],
+				"description": "Get count reportedBugs by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/reportedBugs/blockUnblock": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-reportedBugs-blockUnblock-put",
+				"tags": [
+					"Reported Bugs"
+				],
+				"description": "BlockUnblock reportedBugs by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "isBlocked",
+						"in": "formData",
+						"description": "",
+						"enum": [
+							0,
+							1
+						],
+						"type": "integer",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/categories/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-categories-POST",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "Add Categories by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "name is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": "image is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-categories-GET",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "get categories by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-categories-PUT",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "update categories by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"type": "string",
+						"format": "uuid",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "name",
+						"in": "formData",
+						"description": " ",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "image",
+						"in": "formData",
+						"description": " ",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-categories-DELETE",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "delete categories by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"type": "string",
+						"format": "uuid",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/categories/counts": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-categories-get",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "Get count of categories",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/categories/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-categories-detail-GET",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "detail categories by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/categories/blockUnblock": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-categories-blockUnblock-PUT",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "blockUnblock categories by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "id is required",
+						"required": true,
+						"type": "string",
+						"format": "uuid",
+						"value": ""
+					},
+					{
+						"name": "isBlocked",
+						"in": "formData",
+						"description": "",
+						"type": "integer",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/systemConfiguration/appVersion": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-systemConfiguration-appVersion-POST",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "Add appVersion by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "name is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "version",
+						"in": "formData",
+						"description": "version is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "minimumVersion",
+						"in": "formData",
+						"description": "minimumVersion is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-systemConfiguration-appVersion-get",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "Get appVersion by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-systemConfiguration-appVersion-put",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "Update appVersion by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "version",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "minimumVersion",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-systemConfiguration-appVersion-delete",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "Delete appVersion by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/systemConfiguration/appVersion/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-systemConfiguration-appVersion-detail-{id}-get",
+				"tags": [
+					"System Configuration"
+				],
+				"description": "Get appVersion by admin",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/users": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-users-listing-get",
+				"tags": [
+					"AdminUsers"
+				],
+				"description": "Get listing of users",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "loginType",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false
+					},
+					{
+						"name": "isBlocked",
+						"in": "query",
+						"description": "",
+						"enum": [
+							0,
+							1
+						],
+						"type": "integer",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-users-put",
+				"tags": [
+					"AdminUsers"
+				],
+				"description": "Update user",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-users-delete",
+				"tags": [
+					"AdminUsers"
+				],
+				"description": "Delete user",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "phoneNumber",
+						"in": "formData",
+						"description": "phoneNumber of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "firstName",
+						"in": "formData",
+						"description": "firstName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "lastName",
+						"in": "formData",
+						"description": "lastName of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "gender",
+						"in": "formData",
+						"description": "gender of user",
+						"enum": [
+							"Male",
+							"Female",
+							"Other",
+							"NA"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "age",
+						"in": "formData",
+						"description": "age",
+						"type": "number",
+						"value": 0,
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/users/counts": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-users-listing-get",
+				"tags": [
+					"AdminUsers"
+				],
+				"description": "Get count of users",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"responses": {}
+			}
+		},
+		"/admin/v1/users/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-users-get-id",
+				"tags": [
+					"AdminUsers"
+				],
+				"description": "Get details of user",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/users/block": {
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-users-block-put",
+				"tags": [
+					"AdminUsers"
+				],
+				"description": "Block or unblock user",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "isBlocked",
+						"in": "formData",
+						"description": "",
+						"type": "number",
+						"enum": [
+							0,
+							1
+						],
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/achievements/": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievements-POST",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Add achievements",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"enum": [
+							"Parallel",
+							"Sequential"
+						],
+						"type": "string",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievements-list-get",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Get achievements",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": false,
+						"value": ""
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"required": false,
+						"type": "string",
+						"allowReserved": true,
+						"value": ""
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievements-PUT",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Update achievements",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"enum": [
+							"Parallel",
+							"Sequential"
+						],
+						"type": "string",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievements-DELETE",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Delete achievements",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/achievements/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievements-detail-{id}-GET",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Get achievements",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/achievementLevels": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementLevels-post",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "create of achievementLevels",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "name is required",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "achievementId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementLevels-get",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Get listing of achievementLevels",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": true
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": true
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "achievementId",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementLevels-delete",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "delete achievementLevels",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementLevels-put",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Update achievementLevels",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "email of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "achievementId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/achievementLevels/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementLevels-detail-{id}-GET",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Get achievementsLevel",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/achievementRules": {
+			"post": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementRules-post",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "create of achievementRules",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "name of user",
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "achievementId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "achievementLevelId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "event",
+						"in": "formData",
+						"description": "items is required",
+						"enum": [
+							"Referral",
+							"Like",
+							"Comment",
+							"Report"
+						],
+						"type": "string",
+						"value": "",
+						"required": true
+					},
+					{
+						"name": "eventType",
+						"in": "formData",
+						"description": "type is required",
+						"enum": [
+							"COUNT",
+							"SUM",
+							"AVERAGE"
+						],
+						"type": "string",
+						"value": "",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementRules-get",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Get listing of achievementRules",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": true
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "",
+						"type": "integer",
+						"required": true
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "achievementId",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					},
+					{
+						"name": "achievementLevelId",
+						"in": "query",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					}
+				],
+				"responses": {}
+			},
+			"delete": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementRules-delete",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "delete achievementRules",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			},
+			"put": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementRules-put",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Update achievementRules",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					},
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "name of user",
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "achievementId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					},
+					{
+						"name": "achievementLevelId",
+						"in": "formData",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": false
+					},
+					{
+						"name": "event",
+						"in": "formData",
+						"description": "items is required",
+						"enum": [
+							"Referral",
+							"Like",
+							"Comment",
+							"Report"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "eventType",
+						"in": "formData",
+						"description": "type is required",
+						"enum": [
+							"COUNT",
+							"SUM",
+							"AVERAGE"
+						],
+						"type": "string",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/achievementRules/detail/{id}": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-achievementRules-detail-{id}-GET",
+				"tags": [
+					"Admin Achievements"
+				],
+				"description": "Get achievementRules",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"format": "uuid",
+						"required": true
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/common/dashboard": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "getAll counts",
+				"tags": [
+					"Dashboard"
+				],
+				"description": "",
+				"responses": {}
+			}
+		},
+		"/admin/v1/common/dashboard/activeUsers": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "getAll activeUser",
+				"tags": [
+					"Dashboard"
+				],
+				"description": "",
+				"parameters": [
+					{
+						"name": "startDate",
+						"in": "query",
+						"description": "YYYY-MM-DD hr:mm:ss",
+						"type": "date",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "endDate",
+						"in": "query",
+						"description": "YYYY-MM-DD hr:mm:ss",
+						"type": "date",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/common/dashboard/newUsers": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "getAll newUser",
+				"tags": [
+					"Dashboard"
+				],
+				"description": "",
+				"parameters": [
+					{
+						"name": "startDate",
+						"in": "query",
+						"description": "YYYY-MM-DD hr:mm:ss",
+						"type": "date",
+						"value": "",
+						"required": false
+					},
+					{
+						"name": "endDate",
+						"in": "query",
+						"description": "YYYY-MM-DD hr:mm:ss",
+						"type": "date",
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/admin/v1/common/generateDocument": {
+			"get": {
+				"x-swagger-router-controller": "middleware-name1",
+				"operationId": "admin-v1-common-generateDocument-get",
+				"tags": [
+					"Generate Document"
+				],
+				"description": "Generate document",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "limit",
+						"type": "number",
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "skip",
+						"in": "query",
+						"description": "skip",
+						"type": "number",
+						"value": 0,
+						"required": false
+					},
+					{
+						"name": "fileType",
+						"in": "query",
+						"description": "fileType",
+						"type": "string",
+						"enum": ["PDF", "CSV"],
+						"value": "",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		}
+	},
+	"definitions": {
+		"accessPermissions": {
+			"type": "object",
+			"properties": {
+				"module": {
+					"type": "string"
+				},
+				"permission": {
+					"enum": [
+						1,
+						0
+					],
+					"description": "0 or 1 to set permission",
+					"type": "integer"
+				}
+			},
+			"example": {
+				"module": "dashboard",
+				"permission": 1
+			}
+		}
+	}
+}
