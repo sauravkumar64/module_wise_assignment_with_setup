@@ -1,0 +1,162 @@
+{
+  "swagger": "2.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger by ankush thakut",
+    "description": "This is assignment done by Ankush Thakur",
+    "contact": { "email": "atpara99@gmail.com" },
+    "license": {
+      "name": "",
+      "url": ""
+    }
+  },
+  "schemes": ["http", "https"],
+  "tags": {
+    "name": "FeedBack",
+    "description": "users api"
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "JWT Authorization header"
+    }
+  },
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/feedback/feed/addFeed": {
+      "post": {
+        "summary": "add feedback",
+        "tags": ["Feedback"],
+        "parameters": [
+          {
+            "name": "comment",
+            "in": "formData",
+            "description": "enter your comment",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "in": "formData",
+            "description": "give ratings",
+            "enum": ["1 star", "2 star", "3 star", "4 star", "5 star"],
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/feedback/feed/view/{id}": {
+      "get": {
+        "summary": "getting feedback details",
+        "tags": ["Feedback"],
+        "description": "get all feedback details",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "description": "Enter particular feedback Id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/feedback/comment": {
+      "get": {
+        "summary": "Return the list of all the comment. No need of token",
+        "description": "It is list of all Notification details",
+        "tags": ["Feedback"],
+        "content": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/feedback/ratings/{rating}": {
+      "get": {
+        "summary": "Filter on the based on rating",
+        "tags": ["Feedback"],
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "enum": ["1 star", "2 star", "3 star", "4 star", "5 star"],
+            "required": true,
+            "description": "Filter on the based of rating"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/feedback/feed/deleteFeed": {
+      "delete": {
+        "tags": ["Feedback"],
+        "summary": "Delete Feedback",
+        "description": "Admin can delete feedbacks",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "description": "enter feedback id",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "enter user-id who gave the particular feedback",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deletion Successful",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  }
+}
