@@ -1,0 +1,432 @@
+{
+  "swagger": "2.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger testing for Admin/Sub-Admin",
+    "description": "This is assignment of Admin/sub-Admin done by vaneet kumar",
+    "contact": { "email": "vaneet.k@applify.co" },
+    "license": {
+      "name": "",
+      "url": ""
+    }
+  },
+  "schemes": ["http", "https"],
+  "tags": {
+    "name": "Admin registration",
+    "description": "users api"
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "JWT Authorization header"
+    }
+  },
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/admin/AdminRegistration": {
+      "post": {
+        "summary": "Admin Registration",
+        "tags": ["Admin registration"],
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "enter name",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "Enter email",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Enter a password",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "Enter Super-Admin",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "IsAdmin",
+            "in": "formData",
+            "description": "Enter only 1 for admin",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Registration Successfull",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "tags": {
+      "name": "Sub-Admin registration",
+      "description": "users api"
+    },
+    "/admin/registration": {
+      "post": {
+        "summary": "Sub-Admin Registration. Firstly login then enter token in the authorize",
+        "tags": ["Sub-Admin registration"],
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Enter name",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "Enter email",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Enter a password",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "Enter title",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "RegistrationPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "BlockedPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "UnblockedPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "DeletedPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "EditPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Registration Successfull",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/admin/login": {
+      "post": {
+        "summary": "Login",
+        "tags": ["Login "],
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "enter email",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "enter a password",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Login Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/admin/list": {
+			"get": {
+			
+				"tags": [
+					"Admin filter"
+				],
+				"description": "List all the admins that are blocked or not blocked, but not deleted, alongwith count of users. And also we can filter admins by their name, if admin wants to see only blocked admins then apply blocked filter, and if admin want to see only non blocked admins then apply that filter",
+				"parameters": [
+					{
+						"name": "limit",
+						"description": "Limit",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"value": "10"
+					},
+					{
+						"name": "skip",
+						"description": "Skip",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"value": "0"
+					},
+					{
+						"name": "sortBy",
+						"description": "sort by",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "orderBy",
+						"description": "order by",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "search",
+						"in": "query",
+						"description": "Search",
+						"type": "string",
+						"value": ""
+					},
+					{
+						"name": "Isblocked",
+						"enum": [
+							0,
+							1
+						],
+						"description": "Blocked admin users",
+						"in": "query",
+						"type": "integer",
+						"required": false
+					},
+					{
+						"name": "title",
+						"enum": [
+							"Super-Admin",
+							"Sub-Admin"
+						],
+						"description": "",
+						"in": "query",
+						"type": "string",
+						"required": false
+					}
+				],
+				"responses": {}
+			}
+		},
+    "/admin/block": {
+      "put": {
+        "tags": [
+					"Admin can block"
+				],
+        "summary": "Blocked user.Need to login first and need token",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "Enter AdminId",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blocked Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/admin/unblock": {
+      "put": {
+        "tags": [
+					"Admin can unblock"
+				],
+        "summary": "UnBlocked user.Need to login first and need token",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "Enter AdminId",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UnBlocked Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/admin/edit": {
+      "put": {
+        "tags": [
+					"Admin can edit"
+				],
+        "summary": "Edit user.Need to login first and need token",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "Enter AdminId",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "RegistrationPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "BlockedPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "UnblockedPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "DeletedPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          },
+          {
+            "name": "EditPermission",
+            "in": "formData",
+            "description": "For give the permission enter 1 otherwise 0",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edit Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/admin/delete": {
+      "delete": {
+        "tags": [
+					"Admin can delete"
+				],
+        "summary": "Delete user.Need to login first and need token",
+        "content": ["application/json"],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "formData",
+            "description": "Enter AdminId",
+            "required": "true",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blocked Successfull",
+            "schema": {
+              "type": ""
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+ }
+}
