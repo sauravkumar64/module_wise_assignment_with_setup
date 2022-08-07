@@ -25,5 +25,8 @@
 			"yw",
 			"zq"
 		],
-    "editor.tabSize": 2
+		"editor.tabSize": 2,
+		"eslint.lintTask.enable": false,
+		"eslint.format.enable": false,
+		"eslint.enable": false
 }
