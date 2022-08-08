@@ -1,0 +1,267 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notification API",
+      "description": "This API let us handle the Notification entered by user's on our web application",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "",
+        "description": " Main server"
+      }
+    ],
+    "paths": {
+      "/faq": {
+        "get": {
+          "summary": "To get all Notification",
+          "responses": {
+            "200": {
+              "description": "Notification fetched succefully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/faq/": {
+        "post": {
+          "summary": "create new Notification",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "faq": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Notification created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+  
+      "/faq/{id}": {
+        "delete": {
+          "summary": "delete Notification",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+  
+          "responses": {
+            "200": {
+              "description": "deleted successsfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/faq/updatestatus": {
+        "put": {
+          "summary": "Admin can edit  Notification, in which he/she can mark a Notification as solved",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            },
+            {
+                "in": "header",
+                "name": "status",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                        "type": "ENUM",
+                        "enum": [ "solved", "unsolved"]
+                      }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Status updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/faq/filterusername/{username}": {
+            "get": {
+              "summary": "filter Notification by name of user who have created",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "username",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+      
+              "responses": {
+                "200": {
+                  "description": "Fetched successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+      },
+      "/faq/filterstatus/{status}": {
+            "get": {
+              "summary": "filter Notification which are solved or unsolved",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "status",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+      
+              "responses": {
+                "200": {
+                  "description": "Fetched successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+      },
+      "/faq/edit": {
+        "put": {
+          "summary": "update faq",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "username": {
+                        "type": "string"
+                      },
+                      "OS": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string",
+                        "enum": [ "solved", "unsolved"]
+                      }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "user created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/faq/countfaq": {
+        "get": {
+          "summary": "count of Notification",
+          "parameters": [
+            {
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Fetched successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+  }
+}
+}
