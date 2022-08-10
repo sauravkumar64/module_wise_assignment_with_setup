@@ -1,48 +1,76 @@
-//var createError = require("http-errors");
-const path = require("path");
-const express = require("express");
 const cookieParser = require("cookie-parser");
-const swaggerUI = require("swagger-ui-express");
-const swaggerDocument = require('./config/documentation/swagger.json');
 const cors = require("cors");
-//var logger = require('morgan');
+const express = require("express");
+const logger = require("morgan");
+const path = require("path");
+const swaggerUi = require("swagger-ui-express");
+const env = require("./config/env")();
 
-const indexRouter = require("./routes/index");
-const adminRouter = require("./routes/admin");
+var indexRouter = require("./routes/index");
+var adminRouter = require("./routes/admin");
+var usersRouter = require("./routes/users");
 
-const app = express();
-
-//app.use(logger());
+var __dirname = path.resolve();
+var app = express();
+// ROUTES Path
+// view engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-app.use(cors());
-
-//Sequelize connection
-require("./dbConnection").connectDB();
-require("./models");
-
-//routes
+app.use((req, res, next) => {
+	//Enabling CORS
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+	next();
+});
+var swaggerOptions = {
+	explorer: true,
+	swaggerOptions: {
+		urls: [
+			{
+				url: "/documentation",
+				name: "API"
+			},
+			{
+				url: "/documentation-admin",
+				name: "API - Admin"
+			}
+		]
+	}
+};
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(null, swaggerOptions));
 app.use("/", indexRouter);
-app.use("/admin", adminRouter);
 
-//catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next();
+app.use("/api/v1/user", usersRouter);
+app.use("/admin/v1/admin", adminRouter);
+
+require("./dbConnection").connectDB();
+app.use((req, res, next) => {
+	if (req.originalUrl && req.originalUrl.split("/").pop() === "favicon.ico") {
+		return res.sendStatus(204);
+	}
+	return next();
 });
-
+app.use((req, res, next) => {
+	var err = new Error("Not Found");
+	err.status = 404;
+	next(err);
+});
+app.options("/*", cors()); // enable pre-flight request for DELETE request
 // error handler
-app.use(function (err, req, res) {
-  
-// set locals, only providing error in development
-res.locals.message = err.message;
-res.locals.error = req.app.get("env") === "development" ? err : {};
-
-// render the error page
-res.status(err.status || 500);
-res.render("error");
+app.use((err, req, res) => {
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get("env") === "development" ? err : {};
+	console.log(err);
+	// render the error page
+	res.status(err.status || 500);
+	res.render("404", { baseUrl: env.APP_URLS.API_URL });
 });
-
 module.exports = app;

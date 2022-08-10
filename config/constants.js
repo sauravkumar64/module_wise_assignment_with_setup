@@ -91,7 +91,7 @@ const globalConstants = {
 	DATABASE: {
 		LOCAL: {
 			host: "localhost",
-			name: "intern",
+			name: "applify",
 			user: "root",
 			password: "AKShay10@"
 		},

@@ -1,5 +1,8 @@
 module.exports= {
-  adminService: require("./adminService")
+
+  AdminPermissionService: require("./adminPermissionService"),
+  AdminService: require("./adminService"),
+  AdminSessionService: require("./adminSessionService"),
  
 
 }
